@@ -4,6 +4,8 @@
 
 **MaSf-vision** (Multi-Agent System Framework based on vision) enables you to transform ANY project vision into a fully autonomous multi-agent system that can self-organize and execute to realize that vision.
 
+> **Need detailed setup instructions?** See the [Autonomous Agent Setup Guide](SETUP-AUTONOMOUS-AGENTS.md) for complete information on which files to copy to your own repository.
+
 ## 30-Second Overview
 
 ```

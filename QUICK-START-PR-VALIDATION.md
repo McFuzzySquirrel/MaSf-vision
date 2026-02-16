@@ -2,6 +2,8 @@
 
 This guide shows you how to quickly set up vision-aware PR validation for your project.
 
+> **Note**: For complete autonomous agent system setup (including sprint planning, task extraction, and ADR generation), see the [Autonomous Agent Setup Guide](SETUP-AUTONOMOUS-AGENTS.md).
+
 ## What This Does
 
 The MaSf-vision PR validation system:
@@ -286,6 +288,7 @@ for principle_id, data in principles.items():
 ## Getting Help
 
 - See [PR Constitution Generator README](tools/agent-orchestration/README-pr-constitution.md)
+- For full autonomous agent system: [Autonomous Agent Setup Guide](SETUP-AUTONOMOUS-AGENTS.md)
 - Check [MaSf-vision repository](https://github.com/McFuzzySquirrel/MaSf-vision)
 - Review examples in `docs/product/vision.md`
 
@@ -297,5 +300,6 @@ After setup:
 2. ✅ Generate constitution
 3. ✅ Open a test PR
 4. ✅ Verify checks match your principles
-5. ✅ Share with team
-6. ✅ Iterate on vision as project evolves
+5. ✅ (Optional) Set up autonomous agent execution - see [SETUP-AUTONOMOUS-AGENTS.md](SETUP-AUTONOMOUS-AGENTS.md)
+6. ✅ Share with team
+7. ✅ Iterate on vision as project evolves

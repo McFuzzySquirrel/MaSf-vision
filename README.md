@@ -113,6 +113,16 @@ When applied to the education use case, the system follows a **phone-first archi
 
 ## Getting Started
 
+### For New Users: Adopting MaSf-vision in Your Repository
+
+If you want to use the MaSf-vision framework in your own repository:
+
+1. **See the [Setup Guide for Autonomous Agents](SETUP-AUTONOMOUS-AGENTS.md)** - Complete instructions on which files to copy and how to set up the system
+2. **Or use the bootstrap tool**:
+   ```bash
+   python /path/to/MaSf-vision/tools/agent-orchestration/bootstrap.py --target-repo /path/to/your/repo
+   ```
+
 ### Bootstrap a New Multi-Agent System
 
 1. **Create your vision document** in `docs/product/vision.md`
@@ -136,6 +146,7 @@ See [Development Guide](docs/development/coding-principles.md) for the education
 ## Documentation
 
 ### Framework Documentation
+- [Setup Guide for Autonomous Agents](SETUP-AUTONOMOUS-AGENTS.md) - Complete setup instructions
 - [Master Agent Guide](tools/agent-orchestration/README.md)
 - [Agent Communication Protocol](.github/agents/communication-protocol.md)
 - [Autonomous Sprint Driver](.github/agents/mutagen-agents/autonomous-sprint-driver.md)
