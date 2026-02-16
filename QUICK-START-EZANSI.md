@@ -29,18 +29,24 @@ HTTP 404: Not Found (https://api.github.com/repos/eZansiEdgeAI/ezansieedgeai/act
    python ~/Projects/MaSf-vision/tools/agent-orchestration/bootstrap.py --target-repo .
    ```
 
-4. **Review and commit the changes**:
+4. **Review and commit the changes TO MAIN BRANCH**:
    ```bash
    git status
    git add .
    git commit -m "Bootstrap MaSf-vision framework"
-   git push
+   
+   # ⚠️ IMPORTANT: Push to main/default branch!
+   # Workflows must be on main branch to be available for workflow_dispatch
+   git checkout main  # Switch to main if you're on a feature branch
+   git push origin main
    ```
 
 5. **Now you can run the workflow**:
    ```bash
    gh workflow run autonomous-agent-execution.yml -f mode=full-autonomous
    ```
+
+> **💡 Pro Tip**: If you get "HTTP 404" error when running the workflow, it's because GitHub Actions requires workflows to be on the main/default branch. Make sure you pushed to `main` not a feature branch!
 
 ### Method 2: Manual Copy (For Custom Setup)
 
@@ -71,11 +77,14 @@ If you want more control over what gets copied:
    cp ~/Projects/MaSf-vision/.github/agents/communication-protocol.md .github/agents/
    ```
 
-5. **Commit and push**:
+5. **Commit and push TO MAIN BRANCH**:
    ```bash
    git add .
    git commit -m "Add MaSf-vision framework files"
-   git push
+   
+   # ⚠️ CRITICAL: Push to main branch!
+   git checkout main  # Make sure you're on main
+   git push origin main
    ```
 
 6. **Run the workflow**:
@@ -171,6 +180,24 @@ Generate Architecture Decision Records:
 ❌ Problem: Workflow file not in repository
 ✅ Solution: Run the bootstrap tool or manually copy workflows
 
+### Error: "HTTP 404: Not Found" when running workflow  
+❌ Problem: **Workflows must be on the main/default branch**
+✅ Solution: 
+```bash
+# This is a common issue! GitHub Actions requires workflows to be 
+# on the default branch (main/master) before workflow_dispatch works.
+
+# If you're on a feature branch, push to main first:
+git checkout main
+git merge your-feature-branch  # or manually add the files
+git push origin main
+
+# Now the workflow will be available:
+gh workflow run autonomous-agent-execution.yml -f mode=full-autonomous
+```
+
+**Root Cause**: GitHub only allows manual workflow execution (`workflow_dispatch`) on workflows that exist on the repository's default branch. Working on a feature branch? The workflow won't show up until it's merged to main!
+
 ### Error: "Python module not found"
 ❌ Problem: Missing dependencies in workflow
 ✅ Solution: The workflow installs `pyyaml` automatically, but check logs
@@ -255,6 +282,13 @@ gh run view <run-id>
 ```bash
 cd ~/Projects/ezansieedgeai
 python ~/Projects/MaSf-vision/tools/agent-orchestration/bootstrap.py --target-repo .
-git add . && git commit -m "Bootstrap MaSf-vision framework" && git push
+
+# ⚠️ CRITICAL: Push to main branch (not a feature branch!)
+git checkout main
+git add . && git commit -m "Bootstrap MaSf-vision framework" && git push origin main
+
+# Now you can run the workflow
 gh workflow run autonomous-agent-execution.yml -f mode=full-autonomous
 ```
+
+**Common Gotcha**: Workflows must be on the main/default branch to use `workflow_dispatch`. If you push to a feature branch, the workflow won't be available for manual execution!

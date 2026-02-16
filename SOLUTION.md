@@ -21,14 +21,25 @@ cd ~/Projects/ezansieedgeai
 # Run the bootstrap tool (adjust path to where you cloned MaSf-vision)
 python ~/Projects/MaSf-vision/tools/agent-orchestration/bootstrap.py --target-repo .
 
-# Commit and push the changes
+# Commit and push the changes TO MAIN BRANCH
 git add .
 git commit -m "Bootstrap MaSf-vision framework"
-git push
+git push origin main  # ⚠️ IMPORTANT: Must push to main branch!
 
 # Now you can run the workflow
 gh workflow run autonomous-agent-execution.yml -f mode=full-autonomous
 ```
+
+## ⚠️ CRITICAL: Push to Main Branch First!
+
+**GitHub Actions requires workflows to be on the default branch (main/master) before you can execute them via `workflow_dispatch`.**
+
+If you're working on a feature branch:
+1. Push the workflow files to main first
+2. OR merge your branch to main
+3. THEN you can run `gh workflow run`
+
+**Common mistake**: Pushing workflows to a feature branch and trying to run them - this won't work!
 
 ## What Gets Set Up
 After bootstrapping, your eZansiEdgeAI repository will have:
@@ -95,6 +106,40 @@ pip install -r requirements.txt
 python api_server.py
 # Visit http://localhost:8000/docs
 ```
+
+## Troubleshooting
+
+### Error: "HTTP 404: Not Found" when running workflow
+❌ **Problem**: Workflows must be on the main/default branch  
+✅ **Solution**: 
+```bash
+# Make sure you push to main branch, not a feature branch
+git checkout main
+git add .github/workflows/
+git commit -m "Add MaSf-vision workflows"
+git push origin main
+
+# Now the workflow will be available
+gh workflow run autonomous-agent-execution.yml -f mode=full-autonomous
+```
+
+**Why?** GitHub Actions only allows `workflow_dispatch` on workflows that exist on the default branch (main/master). If you're on a feature branch, the workflow won't show up in the available workflows list.
+
+### Error: "workflow not found" 
+❌ **Problem**: Workflow file not in repository  
+✅ **Solution**: Run the bootstrap tool or manually copy workflows
+
+### Error: "Python module not found"
+❌ **Problem**: Missing dependencies in workflow  
+✅ **Solution**: The workflow installs `pyyaml` automatically, but check logs
+
+### Error: "Permission denied"
+❌ **Problem**: GitHub Actions doesn't have permissions  
+✅ **Solution**: Go to Settings → Actions → General → Workflow permissions → Set to "Read and write permissions"
+
+### Error: "Vision document not found"
+❌ **Problem**: No vision document in `docs/product/vision.md`  
+✅ **Solution**: Your README.md in the masf-vision branch already contains the vision - the workflow will use it as fallback
 
 ## Support
 If you encounter issues:

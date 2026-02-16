@@ -517,7 +517,37 @@ def _suggest_agent_type(self, task_description: str) -> str:
 - Set "Workflow permissions" to "Read and write permissions"
 - Enable "Allow GitHub Actions to create and approve pull requests"
 
-### 3. Running Workflow Before Committing Files
+### 3. Running Workflow Before Pushing to Main Branch ⭐ **Common Issue!**
+
+**Problem**: Running `gh workflow run autonomous-agent-execution.yml` returns "HTTP 404: Not Found" or workflow not listed.
+
+**Root Cause**: GitHub Actions requires workflows to be on the **default branch (main/master)** before you can execute them via `workflow_dispatch`.
+
+**Solution**: 
+```bash
+# Make sure you're on main branch
+git checkout main
+
+# If workflows are on a feature branch, merge them first
+git merge your-feature-branch
+
+# Or add the workflows directly to main
+git add .github/workflows/
+git commit -m "Add MaSf-vision workflows"
+
+# Push to main (not a feature branch!)
+git push origin main
+
+# Now the workflow will be available
+gh workflow run autonomous-agent-execution.yml -f mode=full-autonomous
+```
+
+**Verification**: 
+- Check `gh workflow list` - your workflow should appear
+- Visit GitHub UI → Actions tab → you should see the workflow
+- If workflow doesn't appear, it's not on the main branch yet!
+
+### 4. Running Workflow Before Committing Files
 
 **Problem**: Workflow doesn't find the required files.
 
