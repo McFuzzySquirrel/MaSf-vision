@@ -69,12 +69,19 @@ class MaSfBootstrap:
                 self._create_docs()
             
             print("\n✅ Bootstrap complete!")
-            print("\n📦 Next steps:")
+            print("\n📦 Files copied:")
+            print("   ✓ Workflows: pr-evaluation.yml, autonomous-agent-execution.yml, adr-generation.yml")
+            print("   ✓ Tools: vision-task-extractor.py, master-agent.py, and others")
+            print("   ✓ Agent protocols: communication-protocol.md")
+            print("\n📖 Next steps:")
             print("   1. Review your vision document in docs/product/vision.md")
             print("   2. Review the generated PR constitution in .github/agents/pr-merge-constitution.yaml")
-            print("   3. Customize the workflows in .github/workflows/ if needed")
+            print("   3. Run autonomous agent execution:")
+            print("      gh workflow run autonomous-agent-execution.yml -f mode=full-autonomous")
             print("   4. Commit and push the changes")
             print("   5. Open a PR to test the validation workflow")
+            print("\n📚 For detailed setup instructions, see:")
+            print("   https://github.com/McFuzzySquirrel/MaSf-vision/blob/main/SETUP-AUTONOMOUS-AGENTS.md")
             
             return True
             
@@ -132,7 +139,11 @@ class MaSfBootstrap:
         tools_to_copy = [
             'tools/agent-orchestration/pr-constitution-generator.py',
             'tools/agent-orchestration/master-agent.py',
-            'tools/agent-orchestration/README-pr-constitution.md'
+            'tools/agent-orchestration/vision-task-extractor.py',
+            'tools/agent-orchestration/agent-creator.py',
+            'tools/agent-orchestration/agent-definition-generator.py',
+            'tools/agent-orchestration/README-pr-constitution.md',
+            'tools/agent-orchestration/README.md'
         ]
         
         for tool_path in tools_to_copy:
@@ -149,7 +160,9 @@ class MaSfBootstrap:
     def _setup_workflows(self):
         """Set up GitHub workflows."""
         workflows = [
-            'pr-evaluation.yml'
+            'pr-evaluation.yml',
+            'autonomous-agent-execution.yml',
+            'adr-generation.yml'
         ]
         
         for workflow in workflows:
