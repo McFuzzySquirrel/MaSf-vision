@@ -11,6 +11,29 @@ Error: Not found https://api.github.com/repos/...
 
 This happens because the workflow and supporting files haven't been copied to your repository yet.
 
+## Quick Setup Checklist
+
+Use this checklist to verify your setup is complete:
+
+- [ ] **Workflows copied** to `.github/workflows/`:
+  - [ ] `autonomous-agent-execution.yml`
+  - [ ] `adr-generation.yml` (optional)
+  - [ ] `pr-evaluation.yml` (optional)
+- [ ] **Tools copied** to `tools/agent-orchestration/`:
+  - [ ] `vision-task-extractor.py`
+  - [ ] `master-agent.py`
+  - [ ] `agent-creator.py`
+  - [ ] `agent-definition-generator.py`
+  - [ ] `pr-constitution-generator.py`
+- [ ] **Agent protocol copied** to `.github/agents/`:
+  - [ ] `communication-protocol.md`
+- [ ] **Vision document created** at `docs/product/vision.md`
+- [ ] **GitHub permissions configured** (contents: write, pull-requests: write, issues: write)
+- [ ] **Python dependencies installed** (`pyyaml`)
+- [ ] **First workflow run successful**
+
+> **Tip**: Use the bootstrap tool to automatically complete all these steps: `python /path/to/MaSf-vision/tools/agent-orchestration/bootstrap.py --target-repo .`
+
 ## Required Files
 
 To use the autonomous agent execution system, you need to copy the following files from the MaSf-vision repository to your own repository:
@@ -423,6 +446,66 @@ def _suggest_agent_type(self, task_description: str) -> str:
 6. ✅ **Review generated issues** for sprint plans and tasks
 
 7. ✅ **Iterate on your vision** as the system learns your project
+
+## Common Pitfalls and Solutions
+
+### 1. Forgetting to Copy All Required Files
+
+**Problem**: Workflow runs but fails with "file not found" errors.
+
+**Solution**: Use the checklist at the top of this guide to ensure all files are copied. The bootstrap tool automatically handles this.
+
+### 2. Not Configuring GitHub Permissions
+
+**Problem**: Workflow fails with "permission denied" errors.
+
+**Solution**: 
+- Go to repository Settings → Actions → General
+- Set "Workflow permissions" to "Read and write permissions"
+- Enable "Allow GitHub Actions to create and approve pull requests"
+
+### 3. Running Workflow Before Committing Files
+
+**Problem**: Workflow doesn't find the required files.
+
+**Solution**: Always commit and push all copied files to your repository before triggering the workflow.
+
+### 4. Missing or Improperly Formatted Vision
+
+**Problem**: Sprint plan is empty or doesn't extract tasks properly.
+
+**Solution**: Ensure your vision document has:
+- Clear section headings (use `##` for main sections)
+- "Guiding Principles" or "Principles" section with numbered list
+- "Goals" section with short-term and long-term goals
+- Proper markdown formatting
+
+### 5. Trying to Run in a Forked Repository
+
+**Problem**: Workflow might not have proper permissions in forks.
+
+**Solution**: The autonomous-agent-execution workflow is designed for the main repository. For forks, you may need to adjust permissions or workflow triggers.
+
+### 6. Using Relative Paths in Custom Scripts
+
+**Problem**: Custom scripts fail to find files.
+
+**Solution**: Always use absolute paths or paths relative to repository root when modifying tools.
+
+### 7. Not Installing Python Dependencies
+
+**Problem**: Workflow fails with "module not found" errors.
+
+**Solution**: The workflow includes dependency installation. If running tools locally, ensure `pyyaml` is installed: `pip install pyyaml`
+
+### 8. Modifying Workflows Without Testing
+
+**Problem**: Workflow syntax errors prevent execution.
+
+**Solution**: 
+- Validate YAML syntax before committing
+- Test workflows with manual triggers before relying on scheduled runs
+- Start with `mode=sprint-planning` for safest testing
 
 ## Getting Help
 
