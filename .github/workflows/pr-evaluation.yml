@@ -1,0 +1,246 @@
+name: PR Evaluation
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+      - develop
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  automated-checks:
+    name: Automated Quality Checks
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+        if: hashFiles('**/package-lock.json') != ''
+      
+      - name: Install dependencies
+        run: |
+          if [ -f "package-lock.json" ]; then
+            npm ci
+          fi
+      
+      - name: Lint check
+        run: |
+          if [ -f "package.json" ] && grep -q "lint" package.json; then
+            npm run lint
+          fi
+        continue-on-error: false
+      
+      - name: Run tests
+        run: |
+          if [ -f "package.json" ] && grep -q "test" package.json; then
+            npm test
+          fi
+        continue-on-error: false
+      
+      - name: Security scan
+        uses: snyk/actions/node@master
+        if: hashFiles('**/package-lock.json') != ''
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      
+      - name: Check for secrets
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          base: ${{ github.event.repository.default_branch }}
+          head: HEAD
+
+  constitutional-review:
+    name: Constitutional Judge Review
+    runs-on: ubuntu-latest
+    needs: automated-checks
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Evaluate offline-first compliance
+        run: |
+          echo "Checking for offline-first compliance..."
+          # Check for network blocking patterns
+          if grep -r "await.*fetch\|await.*axios" --include="*.js" --include="*.ts" .; then
+            echo "⚠️  Found blocking network calls - verify offline handling"
+          fi
+          
+          # Check for offline tests
+          if ! grep -r "airplane\|offline\|network.*disable" --include="*test*.js" --include="*test*.ts" .; then
+            echo "⚠️  No offline tests found - verify offline testing"
+          fi
+      
+      - name: Evaluate phone-first compliance
+        run: |
+          echo "Checking for phone-first compliance..."
+          # Check for server dependencies
+          if grep -r "required.*server\|must.*connect" --include="*.md" --include="*.js" --include="*.ts" .; then
+            echo "⚠️  Found potential server dependencies - verify mobile independence"
+          fi
+      
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const message = `## Constitutional Review
+            
+            ✅ Automated checks passed
+            
+            Please ensure:
+            - [ ] Works completely offline (tested with airplane mode)
+            - [ ] Mobile device is independent (no server required)
+            - [ ] Edge device is optional (graceful fallback)
+            - [ ] Solution is simple (no unnecessary complexity)
+            - [ ] Errors handled gracefully (no crashes)
+            
+            Refer to:
+            - [ADR-001: Phone-First Architecture](docs/adr/ADR-001-phone-first-architecture.md)
+            - [ADR-002: Offline-First Design](docs/adr/ADR-002-offline-first-design.md)
+            - [ADR-003: Edge Device as Accelerator](docs/adr/ADR-003-edge-device-as-accelerator.md)
+            `;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: message
+            });
+
+  reality-check:
+    name: Reality Enforcement Check
+    runs-on: ubuntu-latest
+    needs: automated-checks
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Check for evidence
+        run: |
+          echo "Checking PR for required evidence..."
+          
+          # Check PR description for testing evidence
+          PR_BODY="${{ github.event.pull_request.body }}"
+          
+          if ! echo "$PR_BODY" | grep -i "tested on\|device tested"; then
+            echo "⚠️  No device testing evidence in PR description"
+          fi
+          
+          if ! echo "$PR_BODY" | grep -i "offline\|airplane"; then
+            echo "⚠️  No offline testing evidence in PR description"
+          fi
+      
+      - name: Comment requirements
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const message = `## Reality Check
+            
+            Please provide evidence of:
+            
+            ### Device Testing
+            - [ ] Tested on Android 8+ with 2GB RAM (emulator or real device)
+            - [ ] Performance measured (launch time, content load)
+            - [ ] Memory usage checked
+            
+            ### Offline Testing
+            - [ ] Tested with airplane mode enabled
+            - [ ] All core features work offline
+            - [ ] Sync works when connectivity restored
+            
+            ### Implementation
+            - [ ] Code builds successfully
+            - [ ] Tests run and pass
+            - [ ] No placeholder/TODO code
+            `;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: message
+            });
+
+  complexity-check:
+    name: Complexity Enforcement
+    runs-on: ubuntu-latest
+    needs: automated-checks
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+        if: hashFiles('**/package-lock.json') != ''
+      
+      - name: Check complexity
+        run: |
+          if command -v npx &> /dev/null; then
+            # Install complexity checker if available
+            npx --yes complexity-report --format markdown . || true
+          fi
+          
+          # Simple checks
+          echo "Checking for complexity indicators..."
+          
+          # Check for very long files
+          find . -name "*.js" -o -name "*.ts" | while read file; do
+            lines=$(wc -l < "$file")
+            if [ $lines -gt 500 ]; then
+              echo "⚠️  $file has $lines lines (consider splitting)"
+            fi
+          done
+
+  evaluation-summary:
+    name: Evaluation Summary
+    runs-on: ubuntu-latest
+    needs: [constitutional-review, reality-check, complexity-check]
+    if: always()
+    
+    steps:
+      - name: Post summary
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const message = `## PR Evaluation Complete
+            
+            All automated checks have been run. Please review the comments above and address any issues.
+            
+            ### Before Merge
+            - [ ] Constitutional review passed
+            - [ ] Reality checks verified
+            - [ ] Complexity acceptable
+            - [ ] All tests passing
+            - [ ] Documentation updated
+            - [ ] Security scan clean
+            
+            See [PR Merge Constitution](.github/agents/pr-merge-constitution.yaml) for full criteria.
+            `;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: message
+            });
