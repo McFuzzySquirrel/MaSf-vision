@@ -54,7 +54,33 @@ python agent-creator.py --action create --agent-spec agent-spec.json
 - Generates agent definition files
 - Maintains consistency with existing agents
 
-### 3. Autonomous Agent Execution Workflow
+### 3. Agent Definition Generator (`agent-definition-generator.py`)
+
+Generates agent definition markdown files from specifications.
+
+**Usage:**
+```bash
+# Generate all agents from specifications
+python agent-definition-generator.py
+
+# Generate specific agent
+python agent-definition-generator.py --single master-coordinator
+
+# Use custom spec file
+python agent-definition-generator.py --spec-file /path/to/specs.yaml
+```
+
+**Output:**
+- Creates `.md` files in `.github/agents/mutagen-agents/` or `enforcement-agents/`
+- Each file contains role, responsibilities, communication protocols, etc.
+
+**Features:**
+- Converts YAML specs to formatted markdown
+- Adds appropriate integration points by agent type
+- Includes quality standards and success metrics
+- Links to related documentation
+
+### 4. Autonomous Agent Execution Workflow
 
 GitHub Actions workflow that orchestrates autonomous execution.
 
