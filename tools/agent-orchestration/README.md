@@ -1,6 +1,6 @@
 # Agent Orchestration System
 
-This directory contains tools for autonomous agent coordination and execution in the MaS project.
+This directory contains tools for autonomous agent coordination and execution in the MaSf-vision project.
 
 ## Overview
 
