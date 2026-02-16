@@ -1,0 +1,62 @@
+# Dependencies
+node_modules/
+vendor/
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+*.cover
+.pytest_cache/
+.tox/
+
+# Build outputs
+dist/
+build/
+*.egg-info/
+*.pyc
+__pycache__/
+*.class
+*.o
+*.so
+*.dylib
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Environment
+.env
+.env.local
+.env.*.local
+*.log
+
+# Mobile
+*.apk
+*.ipa
+*.aab
+.gradle/
+.expo/
+.expo-shared/
+
+# Models
+*.onnx
+*.tflite
+*.h5
+*.pb
+*.pth
+*.pt
+*.ckpt
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Temporary files
+tmp/
+temp/
+*.tmp
