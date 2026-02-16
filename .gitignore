@@ -60,3 +60,7 @@ Thumbs.db
 tmp/
 temp/
 *.tmp
+
+# Generated multi-agent system artifacts (can be regenerated from vision)
+.mas-system/
+tools/agent-orchestration/current-sprint.yaml
