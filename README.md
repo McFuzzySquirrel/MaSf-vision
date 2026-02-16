@@ -182,10 +182,34 @@ The framework can be applied to any domain:
 
 **Current Example**: Education platform (offline-capable mobile learning)
 
-## Future Considerations
+## CLI Bootstrap Tool
 
-### CLI Bootstrap Tool
-We are considering creating a CLI bootstrap tool that users can install into their own repositories. This would allow them to simply supply their vision document, which would automatically start the entire framework initialization process. This would make it even easier to adopt MaSf-vision for new projects.
+The MaSf-vision framework now includes a CLI bootstrap tool that makes it easy to adopt the framework for your own projects.
+
+### Quick Start
+
+```bash
+# Bootstrap the framework into your repository
+python tools/agent-orchestration/bootstrap.py
+
+# Or bootstrap into a specific directory
+python tools/agent-orchestration/bootstrap.py --target-repo /path/to/your/repo
+```
+
+The bootstrap tool will:
+1. Set up the necessary directory structure
+2. Copy framework tools and workflows
+3. Generate a PR constitution from your vision
+4. Create sample documentation if needed
+
+### What You Get
+
+- **Vision-aware PR validation**: Automatically validates PRs against YOUR project's principles
+- **Dynamic constitution generation**: PR rules derived from your vision, not hardcoded
+- **Automated workflows**: GitHub Actions that enforce your constitution
+- **Customizable**: Easy to adjust and extend for your specific needs
+
+See [Bootstrap Tool Documentation](tools/agent-orchestration/bootstrap.py) for more details.
 
 ## License
 
