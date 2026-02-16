@@ -1,8 +1,8 @@
-# MaS - Multi-Agent System Framework
+# MaSf-vision - Multi-Agent System Framework Based on Vision
 
 ## Project Overview
 
-MaS is a **general-purpose multi-agent system framework** that enables autonomous AI agents to understand any vision, self-organize, and execute collaboratively to realize that vision.
+**MaSf-vision** (Multi-Agent System Framework based on vision) is a **general-purpose multi-agent system framework** that enables autonomous AI agents to understand any vision, self-organize, and execute collaboratively to realize that vision.
 
 ### Core Capability
 
@@ -181,6 +181,11 @@ The framework can be applied to any domain:
 - **Business Operations**: Process automation, workflows
 
 **Current Example**: Education platform (offline-capable mobile learning)
+
+## Future Considerations
+
+### CLI Bootstrap Tool
+We are considering creating a CLI bootstrap tool that users can install into their own repositories. This would allow them to simply supply their vision document, which would automatically start the entire framework initialization process. This would make it even easier to adopt MaSf-vision for new projects.
 
 ## License
 

@@ -1,8 +1,8 @@
-# Quick Start Guide - MaS Framework
+# Quick Start Guide - MaSf-vision Framework
 
-## What is MaS?
+## What is MaSf-vision?
 
-**MaS (Multi-Agent System) Framework** enables you to transform ANY project vision into a fully autonomous multi-agent system that can self-organize and execute to realize that vision.
+**MaSf-vision** (Multi-Agent System Framework based on vision) enables you to transform ANY project vision into a fully autonomous multi-agent system that can self-organize and execute to realize that vision.
 
 ## 30-Second Overview
 

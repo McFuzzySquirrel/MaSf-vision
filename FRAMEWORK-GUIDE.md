@@ -1,8 +1,8 @@
-# Multi-Agent System Framework - User Guide
+# MaSf-vision Framework - User Guide
 
 ## Overview
 
-The MaS (Multi-Agent System) Framework enables you to transform **any project vision** into a fully autonomous multi-agent system that can self-organize and execute to realize that vision.
+The **MaSf-vision** (Multi-Agent System Framework based on vision) enables you to transform **any project vision** into a fully autonomous multi-agent system that can self-organize and execute to realize that vision.
 
 ## How It Works
 

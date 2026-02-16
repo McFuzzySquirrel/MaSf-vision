@@ -1,8 +1,8 @@
-# Multi-Agent System (MaS) Framework - Final Summary
+# MaSf-vision Framework - Final Summary
 
 ## What Was Built
 
-A **general-purpose multi-agent system framework** that enables autonomous AI agents to:
+**MaSf-vision** (Multi-Agent System Framework based on vision) - a **general-purpose multi-agent system framework** that enables autonomous AI agents to:
 1. Understand ANY project vision
 2. Generate a project constitution
 3. Create specialized agents dynamically
@@ -192,6 +192,8 @@ Entire system derived from vision:
 - Protocols support vision execution
 - Quality gates ensure vision alignment
 
+This is the core philosophy of MaSf-vision: the framework is fundamentally **based on vision** - your project vision drives every aspect of the multi-agent system.
+
 ### 3. Self-Organizing
 Agents can:
 - Understand their roles from specifications
@@ -325,12 +327,12 @@ Framework supports:
 
 ## Conclusion
 
-The MaS Framework transforms the concept of multi-agent systems from:
+The MaSf-vision Framework (Multi-Agent System Framework based on vision) transforms the concept of multi-agent systems from:
 
 **Before:** Manual configuration, project-specific, hard-coded agents
 **After:** Vision-driven, automatic, domain-agnostic, self-organizing
 
-This represents a **meta-framework** for multi-agent systems - a system that can create and manage other multi-agent systems based on any vision document.
+This represents a **meta-framework** for multi-agent systems - a system that can create and manage other multi-agent systems based on any vision document. The name "MaSf-vision" reflects this core capability: it's a framework that is fundamentally based on interpreting and executing vision documents.
 
 ## Getting Started
 
