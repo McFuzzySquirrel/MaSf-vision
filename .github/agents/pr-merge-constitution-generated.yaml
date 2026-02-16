@@ -1,0 +1,178 @@
+# PR Merge Constitution
+# This document was automatically generated from the project vision.
+# Generated: 2026-02-16 19:30:15
+# Source: /home/runner/work/MaSf-vision/MaSf-vision/docs/product/vision.md
+
+version: '1.0'
+last_updated: '2026-02-16'
+generated_from: /home/runner/work/MaSf-vision/MaSf-vision/docs/product/vision.md
+domain: education
+core_principles:
+  secure_focused:
+    description: Maintain secure as a core value
+    enforcement: mandatory
+    checks:
+    - Implementation maintains secure
+    - No compromise on secure
+    - Secure validated in tests
+  reliable_focused:
+    description: Maintain reliable as a core value
+    enforcement: mandatory
+    checks:
+    - Implementation maintains reliable
+    - No compromise on reliable
+    - Reliable validated in tests
+  open_focused:
+    description: Maintain open as a core value
+    enforcement: mandatory
+    checks:
+    - Implementation maintains open
+    - No compromise on open
+    - Open validated in tests
+technical_requirements:
+  device_compatibility:
+    description: Ensure compatibility with target devices
+    checks:
+    - Tested on target devices or emulators
+    - Performance within acceptable range
+    - No crashes on target platforms
+    - Resource usage acceptable
+code_quality:
+  testing:
+    requirements:
+      unit_tests: Required for new code
+      integration_tests: Required for key workflows
+      coverage: Maintain or improve
+    checks:
+    - Tests written and passing
+    - Coverage requirements met
+    - Key scenarios tested
+    - Tests are maintainable
+  documentation:
+    required:
+    - Code comments for complex logic
+    - API documentation for public interfaces
+    - README updates if needed
+    - ADR for architectural decisions
+    checks:
+    - Documentation updated
+    - Changes explained in PR
+    - Examples provided where helpful
+    - Breaking changes documented
+  code_style:
+    requirements:
+    - Follows project conventions
+    - Linter passes
+    - Consistent formatting
+    - Meaningful names
+    checks:
+    - Linter passes
+    - Style guide followed
+    - No warnings introduced
+    - Code review approved
+security:
+  data_protection:
+    requirements:
+    - Sensitive data encrypted at rest
+    - Secure communication (HTTPS)
+    - Input validation present
+    - No hardcoded secrets
+    checks:
+    - Security scan passes
+    - No known vulnerabilities
+    - Secrets properly managed
+    - Input sanitized
+architecture:
+  vision_compliance:
+    description: Changes must align with project vision
+    checks:
+    - Aligns with stated mission
+    - Follows vision principles
+    - Supports vision goals
+    - No conflicts with vision constraints
+  pattern_consistency:
+    description: Follow established code patterns
+    checks:
+    - Uses existing patterns where applicable
+    - New patterns justified and documented
+    - Consistent with architecture
+    - No architectural violations
+breaking_changes:
+  allowed: true
+  conditions:
+  - Clearly documented
+  - Migration path provided
+  - Justified by significant benefit
+  - Approved by maintainers
+  required_docs:
+  - BREAKING CHANGE tag in commit
+  - Migration guide
+  - Deprecation timeline
+  - Backward compatibility plan if possible
+enforcement_levels:
+  critical:
+    description: Must pass, no exceptions
+    applies_to:
+    - core_principles
+    - security
+    action: Block merge
+  required:
+    description: Must pass or have approved exception
+    applies_to:
+    - technical_requirements
+    - code_quality (testing, documentation)
+    - architecture
+    action: Block merge or require approval
+  recommended:
+    description: Should pass, exceptions allowed with justification
+    applies_to:
+    - code_style (minor issues)
+    - performance (context-dependent)
+    action: Warning, require justification
+review_process:
+  automated_checks:
+  - Linter
+  - Unit tests
+  - Security scan
+  - Coverage check
+  - Build verification
+  enforcement_agents:
+    constitutional_judge:
+      checks: core_principles
+      authority: Block merge
+    security_enforcement:
+      checks: security
+      authority: Block merge
+    quality_enforcement:
+      checks: code_quality
+      authority: Request changes
+  human_review:
+    required_for:
+    - Architectural changes
+    - Breaking changes
+    - Security-sensitive changes
+    - New dependencies
+    reviewers: Maintainers
+    approval_count: 1
+exceptions:
+  allowed: true
+  process:
+  - Document reason for exception
+  - Propose alternative compliance
+  - Get approval from maintainer
+  - Create issue to address properly
+  documentation:
+  - Exception noted in PR
+  - Follow-up issue created
+  - Timeline for proper fix
+  - Risk assessment
+metrics:
+  tracked:
+  - First-time approval rate
+  - Common failure reasons
+  - Time to merge
+  - Rework frequency
+  reporting:
+  - Weekly summary
+  - Trend analysis
+  - Process improvements
