@@ -80,8 +80,9 @@ class MaSfBootstrap:
             print("      gh workflow run autonomous-agent-execution.yml -f mode=full-autonomous")
             print("   4. Commit and push the changes")
             print("   5. Open a PR to test the validation workflow")
-            print("\n📚 For detailed setup instructions, see:")
-            print("   https://github.com/McFuzzySquirrel/MaSf-vision/blob/main/SETUP-AUTONOMOUS-AGENTS.md")
+            print("\n📚 For detailed setup instructions:")
+            print("   - See MASF-FRAMEWORK.md in this repository")
+            print("   - Or visit: https://github.com/McFuzzySquirrel/MaSf-vision/blob/main/SETUP-AUTONOMOUS-AGENTS.md")
             
             return True
             
