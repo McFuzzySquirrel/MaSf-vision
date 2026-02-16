@@ -252,7 +252,8 @@ class MasterAgent:
         
         for keyword in section_keywords:
             # Pattern: Find heading with keyword, then capture content until next heading
-            pattern = rf'#{1,3}\s+.*{keyword}[^\n]*\n+([^#].*?)(?=\n#{1,3}|\Z)'
+            # Using r-string concatenation to avoid f-string brace issues
+            pattern = r'#{1,3}\s+.*' + keyword + r'[^\n]*\n+([^#].*?)(?=\n#{1,3}|\Z)'
             match = re.search(pattern, content, re.DOTALL | re.IGNORECASE)
             if match:
                 section = match.group(1)

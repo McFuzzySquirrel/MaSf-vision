@@ -1,280 +1,207 @@
 # PR Merge Constitution
-# This YAML document defines the criteria for merging pull requests in the MaS project.
-# All PRs must pass these checks before being merged.
+# This document was automatically generated from the project vision.
+# Generated: 2026-02-16 19:31:45
+# Source: /home/runner/work/MaSf-vision/MaSf-vision/docs/product/vision.md
 
-version: "1.0"
-last_updated: "2026-02-16"
-
-# Core Principles (Non-Negotiable)
+version: '1.0'
+last_updated: '2026-02-16'
+generated_from: /home/runner/work/MaSf-vision/MaSf-vision/docs/product/vision.md
+domain: education
 core_principles:
-  offline_first:
-    description: "All core features must work completely offline"
-    enforcement: "mandatory"
+  learner_first:
+    description: '**Learner First**: Every decision prioritizes learner experience'
+    enforcement: mandatory
     checks:
-      - "Feature functions with airplane mode enabled"
-      - "No blocking on network requests in core flows"
-      - "Graceful handling of network failures"
-      - "Offline test scenarios pass"
-    
-  phone_first:
-    description: "Mobile device is primary platform, not a client"
-    enforcement: "mandatory"
+    - Implementation aligns with principle
+    - Principle considered in design
+    - No violations of principle
+  accessibility:
+    description: '**Accessibility**: Works for anyone, anywhere'
+    enforcement: mandatory
     checks:
-      - "Feature works on mobile device independently"
-      - "Edge device is optional, not required"
-      - "No server dependencies for core functionality"
-      - "Mobile-optimized UX"
-    
-  progressive_enhancement:
-    description: "Edge devices enhance but don't enable"
-    enforcement: "mandatory"
-    checks:
-      - "Feature works without edge device"
-      - "Graceful fallback when edge unavailable"
-      - "Enhanced path provides clear benefit"
-      - "No feature gates on infrastructure"
-    
+    - Implementation aligns with principle
+    - Works in target environments
+    - No unnecessary barriers
   simplicity:
-    description: "Prefer simple solutions over complex ones"
-    enforcement: "mandatory"
+    description: '**Simplicity**: Easy to use with minimal training'
+    enforcement: mandatory
     checks:
-      - "Solution is as simple as possible"
-      - "No unnecessary abstractions"
-      - "Code is readable and maintainable"
-      - "Complexity justified in comments/docs"
-    
-  resilience:
-    description: "Handle failures gracefully"
-    enforcement: "mandatory"
+    - Implementation aligns with principle
+    - Solution is as simple as possible
+    - No unnecessary complexity
+  resource_conscious:
+    description: '**Resource Conscious**: Optimized for low-spec devices and limited
+      bandwidth'
+    enforcement: mandatory
     checks:
-      - "All error paths handled"
-      - "No data loss on failures"
-      - "User-friendly error messages"
-      - "Auto-recovery where possible"
-
-# Technical Requirements
+    - Implementation aligns with principle
+    - Mobile-friendly implementation
+    - Works on target mobile devices
+  open:
+    description: '**Open**: Open standards, interoperable, community-driven'
+    enforcement: mandatory
+    checks:
+    - Implementation aligns with principle
+    - Uses open standards where applicable
+    - Documented interfaces
+  resilient_by_design:
+    description: '**Resilient by Design**: Degrades gracefully under any conditions'
+    enforcement: mandatory
+    checks:
+    - Implementation aligns with principle
+    - Error handling implemented
+    - Graceful degradation in edge cases
+  reliability:
+    description: '**Reliability**: Works consistently in any environment'
+    enforcement: mandatory
+    checks:
+    - Implementation aligns with principle
+    - Error handling implemented
+    - Graceful degradation in edge cases
 technical_requirements:
   device_compatibility:
-    minimum_specs:
-      android: "8.0+ (API 26+)"
-      ram: "2GB"
-      storage: "1GB free"
-      screen: "4.5 inches"
+    description: Ensure compatibility with target devices
     checks:
-      - "Tested on minimum spec device"
-      - "Performance within targets"
-      - "No crashes on low-end devices"
-      - "Memory usage acceptable"
-    
-  performance:
-    targets:
-      app_launch: "< 2 seconds"
-      content_load: "< 1 second"
-      ui_response: "< 100ms"
-      battery_drain: "< 10% per hour"
-    checks:
-      - "Performance benchmarks run"
-      - "Targets met or justified deviation"
-      - "No performance regressions"
-      - "Profiling done on target devices"
-    
-  storage:
-    constraints:
-      app_size: "< 100 MB"
-      content_package: "< 500 MB per subject"
-      user_data: "< 10 MB"
-    checks:
-      - "Storage impact documented"
-      - "Efficient data structures used"
-      - "Asset optimization applied"
-      - "Cleanup strategy in place"
-
-# Code Quality Requirements
+    - Tested on target devices or emulators
+    - Performance within acceptable range
+    - No crashes on target platforms
+    - Resource usage acceptable
 code_quality:
   testing:
     requirements:
-      unit_coverage: "80%"
-      integration_tests: "Key workflows"
-      offline_tests: "All features"
-      device_tests: "Low-end Android"
+      unit_tests: Required for new code
+      integration_tests: Required for key workflows
+      coverage: Maintain or improve
     checks:
-      - "Tests written and passing"
-      - "Coverage requirements met"
-      - "Offline scenarios tested"
-      - "Device compatibility tested"
-    
+    - Tests written and passing
+    - Coverage requirements met
+    - Key scenarios tested
+    - Tests are maintainable
   documentation:
     required:
-      - "Code comments for complex logic"
-      - "API documentation for public interfaces"
-      - "README updates if needed"
-      - "ADR for architectural decisions"
+    - Code comments for complex logic
+    - API documentation for public interfaces
+    - README updates if needed
+    - ADR for architectural decisions
     checks:
-      - "Documentation updated"
-      - "Changes explained in PR"
-      - "Examples provided where helpful"
-      - "Breaking changes documented"
-    
+    - Documentation updated
+    - Changes explained in PR
+    - Examples provided where helpful
+    - Breaking changes documented
   code_style:
     requirements:
-      - "Follows project conventions"
-      - "Linter passes"
-      - "Consistent formatting"
-      - "Meaningful names"
+    - Follows project conventions
+    - Linter passes
+    - Consistent formatting
+    - Meaningful names
     checks:
-      - "Linter passes"
-      - "Style guide followed"
-      - "No warnings introduced"
-      - "Code review approved"
-
-# Security Requirements
+    - Linter passes
+    - Style guide followed
+    - No warnings introduced
+    - Code review approved
 security:
   data_protection:
     requirements:
-      - "Sensitive data encrypted at rest"
-      - "Secure communication (HTTPS)"
-      - "Input validation present"
-      - "No hardcoded secrets"
+    - Sensitive data encrypted at rest
+    - Secure communication (HTTPS)
+    - Input validation present
+    - No hardcoded secrets
     checks:
-      - "Security scan passes"
-      - "No known vulnerabilities"
-      - "Secrets properly managed"
-      - "Input sanitized"
-    
-  privacy:
-    requirements:
-      - "Minimal data collection"
-      - "User consent obtained"
-      - "Data anonymized where possible"
-      - "Privacy policy compliance"
-    checks:
-      - "Privacy review done"
-      - "PII handled correctly"
-      - "Consent flow appropriate"
-      - "Audit trail in place"
-
-# Architecture Alignment
+    - Security scan passes
+    - No known vulnerabilities
+    - Secrets properly managed
+    - Input sanitized
 architecture:
-  adr_compliance:
-    description: "Changes must align with accepted ADRs"
+  vision_compliance:
+    description: Changes must align with project vision
     checks:
-      - "ADR-001 (Phone-First) followed"
-      - "ADR-002 (Offline-First) followed"
-      - "ADR-003 (Edge as Accelerator) followed"
-      - "No conflicts with existing ADRs"
-    
+    - Aligns with stated mission
+    - Follows vision principles
+    - Supports vision goals
+    - No conflicts with vision constraints
   pattern_consistency:
-    description: "Follow established code patterns"
+    description: Follow established code patterns
     checks:
-      - "Uses existing patterns where applicable"
-      - "New patterns justified and documented"
-      - "Consistent with architecture"
-      - "No architectural violations"
-
-# Breaking Changes
+    - Uses existing patterns where applicable
+    - New patterns justified and documented
+    - Consistent with architecture
+    - No architectural violations
 breaking_changes:
   allowed: true
   conditions:
-    - "Clearly documented"
-    - "Migration path provided"
-    - "Justified by significant benefit"
-    - "Approved by maintainers"
+  - Clearly documented
+  - Migration path provided
+  - Justified by significant benefit
+  - Approved by maintainers
   required_docs:
-    - "BREAKING CHANGE tag in commit"
-    - "Migration guide"
-    - "Deprecation timeline"
-    - "Backward compatibility plan if possible"
-
-# Enforcement Levels
+  - BREAKING CHANGE tag in commit
+  - Migration guide
+  - Deprecation timeline
+  - Backward compatibility plan if possible
 enforcement_levels:
   critical:
-    description: "Must pass, no exceptions"
+    description: Must pass, no exceptions
     applies_to:
-      - "core_principles"
-      - "security"
-      - "device_compatibility (Android min specs)"
-    action: "Block merge"
-    
+    - core_principles
+    - security
+    action: Block merge
   required:
-    description: "Must pass or have approved exception"
+    description: Must pass or have approved exception
     applies_to:
-      - "technical_requirements (most)"
-      - "code_quality (testing, documentation)"
-      - "architecture"
-    action: "Block merge or require approval"
-    
+    - technical_requirements
+    - code_quality (testing, documentation)
+    - architecture
+    action: Block merge or require approval
   recommended:
-    description: "Should pass, exceptions allowed with justification"
+    description: Should pass, exceptions allowed with justification
     applies_to:
-      - "performance (may vary by feature)"
-      - "storage (may vary by content)"
-      - "code_style (minor issues)"
-    action: "Warning, require justification"
-
-# Review Process
+    - code_style (minor issues)
+    - performance (context-dependent)
+    action: Warning, require justification
 review_process:
   automated_checks:
-    - "Linter"
-    - "Unit tests"
-    - "Security scan"
-    - "Coverage check"
-    - "Build verification"
-    
+  - Linter
+  - Unit tests
+  - Security scan
+  - Coverage check
+  - Build verification
   enforcement_agents:
     constitutional_judge:
-      checks: "core_principles"
-      authority: "Block merge"
+      checks: core_principles
+      authority: Block merge
     security_enforcement:
-      checks: "security"
-      authority: "Block merge"
-    reality_enforcement:
-      checks: "device_compatibility, offline_first"
-      authority: "Block merge"
-    complexity_enforcement:
-      checks: "simplicity, code_quality"
-      authority: "Request changes"
-    
+      checks: security
+      authority: Block merge
+    quality_enforcement:
+      checks: code_quality
+      authority: Request changes
   human_review:
     required_for:
-      - "Architectural changes"
-      - "Breaking changes"
-      - "Security-sensitive changes"
-      - "New dependencies"
-    reviewers: "Maintainers"
+    - Architectural changes
+    - Breaking changes
+    - Security-sensitive changes
+    - New dependencies
+    reviewers: Maintainers
     approval_count: 1
-
-# Exception Process
 exceptions:
   allowed: true
   process:
-    - "Document reason for exception"
-    - "Propose alternative compliance"
-    - "Get approval from maintainer"
-    - "Create issue to address properly"
+  - Document reason for exception
+  - Propose alternative compliance
+  - Get approval from maintainer
+  - Create issue to address properly
   documentation:
-    - "Exception noted in PR"
-    - "Follow-up issue created"
-    - "Timeline for proper fix"
-    - "Risk assessment"
-
-# Metrics and Reporting
+  - Exception noted in PR
+  - Follow-up issue created
+  - Timeline for proper fix
+  - Risk assessment
 metrics:
   tracked:
-    - "First-time approval rate"
-    - "Common failure reasons"
-    - "Time to merge"
-    - "Rework frequency"
+  - First-time approval rate
+  - Common failure reasons
+  - Time to merge
+  - Rework frequency
   reporting:
-    - "Weekly summary"
-    - "Trend analysis"
-    - "Process improvements"
-
-# Constitution Updates
-amendments:
-  process:
-    - "Propose change with rationale"
-    - "Discuss with team"
-    - "Update documentation"
-    - "Version and date update"
-  authority: "Maintainers"
-  notification: "Announce to all contributors"
+  - Weekly summary
+  - Trend analysis
+  - Process improvements
