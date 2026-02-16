@@ -1,4 +1,4 @@
-# MaSf-vision - Multi-Agent System Framework Based on Vision
+# MaSf-vision (Multi-Agent System Framework Based on Vision)
 
 ## Project Overview
 
