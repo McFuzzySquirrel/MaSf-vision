@@ -28,6 +28,7 @@ Use this checklist to verify your setup is complete:
 - [ ] **Agent protocol copied** to `.github/agents/`:
   - [ ] `communication-protocol.md`
 - [ ] **Vision document created** at `docs/product/vision.md`
+- [ ] **Backlog created** at `docs/development/backlog-v1.md` (recommended for task extraction)
 - [ ] **GitHub permissions configured** (contents: write, pull-requests: write, issues: write)
 - [ ] **Python dependencies installed** (`pyyaml`)
 - [ ] **First workflow run successful**
@@ -160,7 +161,27 @@ Create your project vision in one of these locations:
 
 See [Vision Document Requirements](#vision-document-requirements) below.
 
-### 2. GitHub Permissions
+### 2. Backlog Document (Optional but Recommended)
+
+For the autonomous agent execution to generate meaningful sprint plans, create a backlog at:
+- `docs/development/backlog-v1.md`
+
+The backlog should contain epics and tasks. If no backlog exists, the system will work from vision only but may have limited task extraction.
+
+**Example backlog structure:**
+```markdown
+## Epic 1: User Authentication
+- Implement login system
+- Add password reset
+- Setup OAuth integration
+
+## Epic 2: Dashboard
+- Create main dashboard layout
+- Add analytics widgets
+- Implement data refresh
+```
+
+### 3. GitHub Permissions
 
 The workflows need specific permissions. Add to your workflow file or ensure repository settings allow:
 
@@ -171,7 +192,7 @@ permissions:
   issues: write        # To create issues
 ```
 
-### 3. Python Dependencies
+### 4. Python Dependencies
 
 The tools require Python 3.8+ and the following packages:
 - `pyyaml` (for YAML parsing)
@@ -327,15 +348,25 @@ If this fails, check your workflow file has this step.
 
 ### No sprint plan generated
 
-**Cause**: Vision document doesn't have recognizable structure.
+**Cause**: Vision document doesn't have recognizable structure, or backlog is missing.
 
 **Solution**:
 1. Ensure vision has clear headings: "Goals", "Principles", etc.
-2. Add epics or tasks in your vision or backlog
-3. Run vision-task-extractor.py locally to debug:
+2. Create a backlog file at `docs/development/backlog-v1.md` with epics and tasks
+3. Add specific tasks/epics in your backlog for the system to extract
+4. Run vision-task-extractor.py locally to debug:
    ```bash
    python tools/agent-orchestration/vision-task-extractor.py --repo-root . --output /tmp/test-sprint.yaml
    ```
+
+### Error: "Backlog file not found"
+
+**Cause**: The vision-task-extractor requires a backlog file to generate sprint plans.
+
+**Solution**:
+1. Create `docs/development/backlog-v1.md`
+2. Add epics and tasks in markdown format
+3. The backlog should list concrete work items the system can extract
 
 ## Verifying Your Setup
 
