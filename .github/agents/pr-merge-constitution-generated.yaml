@@ -1,6 +1,6 @@
 # PR Merge Constitution
 # This document was automatically generated from the project vision.
-# Generated: 2026-02-16 19:31:45
+# Generated: 2026-02-16 19:30:15
 # Source: /home/runner/work/MaSf-vision/MaSf-vision/docs/product/vision.md
 
 version: '1.0'
@@ -8,56 +8,27 @@ last_updated: '2026-02-16'
 generated_from: /home/runner/work/MaSf-vision/MaSf-vision/docs/product/vision.md
 domain: education
 core_principles:
-  learner_first:
-    description: '**Learner First**: Every decision prioritizes learner experience'
+  secure_focused:
+    description: Maintain secure as a core value
     enforcement: mandatory
     checks:
-    - Implementation aligns with principle
-    - Principle considered in design
-    - No violations of principle
-  accessibility:
-    description: '**Accessibility**: Works for anyone, anywhere'
+    - Implementation maintains secure
+    - No compromise on secure
+    - Secure validated in tests
+  reliable_focused:
+    description: Maintain reliable as a core value
     enforcement: mandatory
     checks:
-    - Implementation aligns with principle
-    - Works in target environments
-    - No unnecessary barriers
-  simplicity:
-    description: '**Simplicity**: Easy to use with minimal training'
+    - Implementation maintains reliable
+    - No compromise on reliable
+    - Reliable validated in tests
+  open_focused:
+    description: Maintain open as a core value
     enforcement: mandatory
     checks:
-    - Implementation aligns with principle
-    - Solution is as simple as possible
-    - No unnecessary complexity
-  resource_conscious:
-    description: '**Resource Conscious**: Optimized for low-spec devices and limited
-      bandwidth'
-    enforcement: mandatory
-    checks:
-    - Implementation aligns with principle
-    - Mobile-friendly implementation
-    - Works on target mobile devices
-  open:
-    description: '**Open**: Open standards, interoperable, community-driven'
-    enforcement: mandatory
-    checks:
-    - Implementation aligns with principle
-    - Uses open standards where applicable
-    - Documented interfaces
-  resilient_by_design:
-    description: '**Resilient by Design**: Degrades gracefully under any conditions'
-    enforcement: mandatory
-    checks:
-    - Implementation aligns with principle
-    - Error handling implemented
-    - Graceful degradation in edge cases
-  reliability:
-    description: '**Reliability**: Works consistently in any environment'
-    enforcement: mandatory
-    checks:
-    - Implementation aligns with principle
-    - Error handling implemented
-    - Graceful degradation in edge cases
+    - Implementation maintains open
+    - No compromise on open
+    - Open validated in tests
 technical_requirements:
   device_compatibility:
     description: Ensure compatibility with target devices
