@@ -41,6 +41,10 @@ If you're working on a feature branch:
 
 **Common mistake**: Pushing workflows to a feature branch and trying to run them - this won't work!
 
+## ⚠️ Artifact v3 Deprecation Error?
+
+If you get an error about deprecated `actions/upload-artifact: v3`, see **[ARTIFACT-V3-FIX.md](ARTIFACT-V3-FIX.md)** for the solution.
+
 ## What Gets Set Up
 After bootstrapping, your eZansiEdgeAI repository will have:
 
@@ -124,6 +128,16 @@ gh workflow run autonomous-agent-execution.yml -f mode=full-autonomous
 ```
 
 **Why?** GitHub Actions only allows `workflow_dispatch` on workflows that exist on the default branch (main/master). If you're on a feature branch, the workflow won't show up in the available workflows list.
+
+### Error: "Deprecated version of actions/upload-artifact: v3"
+❌ **Problem**: GitHub deprecated v3 of artifact actions in April 2024  
+✅ **Solution**: See **[ARTIFACT-V3-FIX.md](ARTIFACT-V3-FIX.md)** for detailed fix instructions
+
+**Quick fix**: Update your workflow file:
+- Line ~59: Change `actions/upload-artifact@v3` to `@v4`
+- Line ~198: Change `actions/download-artifact@v3` to `@v4`
+
+Then commit and push to main branch.
 
 ### Error: "workflow not found" 
 ❌ **Problem**: Workflow file not in repository  

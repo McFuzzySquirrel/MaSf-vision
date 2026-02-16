@@ -21,19 +21,33 @@ So here we go:
 
 **MaSf-vision** (Multi-Agent System Framework based on vision) is a **general-purpose multi-agent system framework** that enables autonomous AI agents to understand any vision, self-organize, and execute collaboratively to realize that vision.
 
-## 🚨 Getting "Workflow Not Found" Error?
+## 🚨 Common Issues & Quick Fixes
+
+### Getting "Workflow Not Found" Error?
 
 If you're trying to use MaSf-vision in your repository (like eZansiEdgeAI) and getting:
 ```
 HTTP 404: Not Found (https://api.github.com/repos/.../workflows/autonomous-agent-execution.yml)
 ```
 
-**→ See [QUICK-START-EZANSI.md](QUICK-START-EZANSI.md) for the solution!**
+**→ See [SOLUTION.md](SOLUTION.md) for the complete solution!**
 
-**TL;DR**: You need to bootstrap the framework into your repository first:
+**TL;DR**: You need to bootstrap the framework into your repository first, and push to the **main branch**:
 ```bash
 python /path/to/MaSf-vision/tools/agent-orchestration/bootstrap.py --target-repo /path/to/your/repo
+git checkout main && git push origin main
 ```
+
+### Getting "Deprecated artifact v3" Error?
+
+If your workflow fails with:
+```
+This request has been automatically failed because it uses a deprecated version of `actions/upload-artifact: v3`
+```
+
+**→ See [ARTIFACT-V3-FIX.md](ARTIFACT-V3-FIX.md) for the fix!**
+
+**Quick fix**: Update your workflow file to use `@v4` instead of `@v3` for upload-artifact and download-artifact actions.
 
 ### Core Capability
 
