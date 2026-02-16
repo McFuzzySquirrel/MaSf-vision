@@ -177,10 +177,17 @@ class MaSfBootstrap:
     
     def _generate_constitution(self):
         """Generate PR constitution from vision."""
-        # Import and run the generator
+        # Import and run the generator using importlib to handle hyphenated filename
         try:
-            sys.path.insert(0, str(self.target_repo / 'tools' / 'agent-orchestration'))
-            from pr_constitution_generator import PRConstitutionGenerator
+            import importlib.util
+            
+            # Load the pr-constitution-generator.py module
+            generator_path = self.target_repo / 'tools' / 'agent-orchestration' / 'pr-constitution-generator.py'
+            spec = importlib.util.spec_from_file_location("pr_constitution_generator", generator_path)
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            
+            PRConstitutionGenerator = module.PRConstitutionGenerator
             
             generator = PRConstitutionGenerator(repo_root=str(self.target_repo))
             output_path = self.target_repo / '.github' / 'agents' / 'pr-merge-constitution.yaml'

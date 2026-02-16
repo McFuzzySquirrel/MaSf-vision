@@ -251,8 +251,14 @@ class MasterAgent:
         principles = []
         
         for keyword in section_keywords:
-            # Pattern: Find heading with keyword, then capture content until next heading
-            # Using r-string concatenation to avoid f-string brace issues
+            # Pattern explanation:
+            # - #{1,3}\s+.*     : Match heading (H1-H3) with any text
+            # - keyword         : Must contain the keyword (principle, value, etc.)
+            # - [^\n]*          : Rest of heading line (excluding newline)
+            # - \n+             : One or more newlines after heading
+            # - ([^#].*?)       : Capture content that doesn't start with # (not another heading)
+            # - (?=\n#{1,3}|\Z) : Stop at next heading or end of content
+            # Note: Using r-string concatenation to avoid f-string brace issues with {1,3}
             pattern = r'#{1,3}\s+.*' + keyword + r'[^\n]*\n+([^#].*?)(?=\n#{1,3}|\Z)'
             match = re.search(pattern, content, re.DOTALL | re.IGNORECASE)
             if match:
