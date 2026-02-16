@@ -113,6 +113,9 @@ jobs:
           print("✅ Automated checks passed - Constitutional review complete.")
           PYTHON_EOF
       
+      - name: Install js-yaml
+        run: npm install js-yaml
+      
       - name: Comment on PR
         uses: actions/github-script@v7
         env:
@@ -204,6 +207,9 @@ jobs:
         env:
           PR_BODY: ${{ github.event.pull_request.body }}
       
+      - name: Install js-yaml
+        run: npm install js-yaml
+      
       - name: Comment requirements
         uses: actions/github-script@v7
         env:
@@ -287,6 +293,10 @@ jobs:
     if: always()
     
     steps:
+      - name: Install js-yaml (if needed for future use)
+        run: npm install js-yaml
+        if: false  # This step doesn't actually use js-yaml currently
+      
       - name: Post summary
         uses: actions/github-script@v7
         with:
