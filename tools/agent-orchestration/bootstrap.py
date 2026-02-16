@@ -336,6 +336,14 @@ Every PR is automatically checked against your constitution. The workflow will:
 - [Vision Document](docs/product/vision.md)
 - [PR Merge Constitution](.github/agents/pr-merge-constitution.yaml)
 
+## Autonomous Agent Execution
+
+The framework includes autonomous agent execution capabilities. For setup instructions:
+
+- **Local Tools**: See tools in `tools/agent-orchestration/`
+- **Workflows**: Check `.github/workflows/autonomous-agent-execution.yml`
+- **Complete Guide**: Visit the [MaSf-vision Setup Guide](https://github.com/McFuzzySquirrel/MaSf-vision/blob/main/SETUP-AUTONOMOUS-AGENTS.md)
+
 ## Learn More
 
 Visit the [MaSf-vision repository](https://github.com/McFuzzySquirrel/MaSf-vision) for more information.

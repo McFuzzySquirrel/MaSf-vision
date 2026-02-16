@@ -301,5 +301,5 @@ After setup:
 3. ✅ Open a test PR
 4. ✅ Verify checks match your principles
 5. ✅ (Optional) Set up autonomous agent execution - see [SETUP-AUTONOMOUS-AGENTS.md](SETUP-AUTONOMOUS-AGENTS.md)
-5. ✅ Share with team
-6. ✅ Iterate on vision as project evolves
+6. ✅ Share with team
+7. ✅ Iterate on vision as project evolves
