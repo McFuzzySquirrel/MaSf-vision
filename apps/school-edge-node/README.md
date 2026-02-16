@@ -63,18 +63,12 @@ The edge device provides:
 
 ## Technology Stack
 
-**To Be Determined** - Will be selected based on:
-- Linux compatibility
-- Container support
-- Resource efficiency
-- Easy deployment
-- Remote management
-
-Candidates:
-- Node.js services
-- Python services
-- Go services
-- Docker/Kubernetes orchestration
+**Current Implementation**: Python with FastAPI
+- FastAPI for REST API endpoints
+- Uvicorn ASGI server
+- Pydantic for data validation
+- Easy deployment and remote management
+- Container-ready (Docker support)
 
 ## Deployment Modes
 
@@ -85,16 +79,45 @@ Candidates:
 ## Development
 
 ### Prerequisites
-(To be added)
+- Python 3.8 or higher
+- pip (Python package manager)
 
 ### Setup
-(To be added)
+```bash
+# Navigate to the school-edge-node directory
+cd apps/school-edge-node
+
+# Install dependencies
+pip install -r requirements.txt
+```
 
 ### Running
-(To be added)
+
+#### Development Mode
+```bash
+# Run the API server
+python api_server.py
+```
+
+The API will be available at:
+- API Root: http://localhost:8000
+- Interactive Docs: http://localhost:8000/docs
+- Health Check: http://localhost:8000/health
+- Discovery Endpoint: http://localhost:8000/api/v1/discover
+
+#### Production Mode
+```bash
+# Run with uvicorn directly
+uvicorn api_server:app --host 0.0.0.0 --port 8000 --workers 4
+```
 
 ### Testing
-(To be added)
+```bash
+# Test the API endpoints
+curl http://localhost:8000/health
+curl http://localhost:8000/api/v1/discover
+curl http://localhost:8000/api/v1/services
+```
 
 ## Project Structure
 
