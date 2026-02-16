@@ -6,7 +6,12 @@ This guide explains how to set up the autonomous agent execution system in your 
 
 When users try to run `autonomous-agent-execution.yml` workflow in their own repository, they may encounter errors like:
 ```
-Error: Not found https://api.github.com/repos/...
+Error: Request failed due to following response errors:
+ - Not found https://api.github.com/repos/[owner]/[repo]/...
+```
+or
+```
+Error: Unable to resolve action `.github/workflows/autonomous-agent-execution.yml`, unable to find version `main`
 ```
 
 This happens because the workflow and supporting files haven't been copied to your repository yet.
@@ -33,7 +38,12 @@ Use this checklist to verify your setup is complete:
 - [ ] **Python dependencies installed** (`pyyaml`)
 - [ ] **First workflow run successful**
 
-> **Tip**: Use the bootstrap tool to automatically complete all these steps: `python /path/to/MaSf-vision/tools/agent-orchestration/bootstrap.py --target-repo .`
+> **Tip**: Use the bootstrap tool to automatically complete all these steps:
+> ```bash
+> # Replace /path/to/MaSf-vision with the actual location where you cloned the framework
+> # For example: ~/projects/MaSf-vision or /home/user/repos/MaSf-vision
+> python /path/to/MaSf-vision/tools/agent-orchestration/bootstrap.py --target-repo .
+> ```
 
 ## Required Files
 
@@ -161,12 +171,19 @@ Create your project vision in one of these locations:
 
 See [Vision Document Requirements](#vision-document-requirements) below.
 
-### 2. Backlog Document (Optional but Recommended)
+### 2. Backlog Document (For Task Extraction)
 
-For the autonomous agent execution to generate meaningful sprint plans, create a backlog at:
-- `docs/development/backlog-v1.md`
+The autonomous agent execution system can work in two modes:
 
-The backlog should contain epics and tasks. If no backlog exists, the system will work from vision only but may have limited task extraction.
+**Mode 1: Vision Only** (No backlog required)
+- System will analyze vision document for high-level goals
+- May have limited task extraction capability
+- Best for initial setup or vision-driven planning
+
+**Mode 2: Vision + Backlog** (Recommended for full functionality)
+- Create a backlog at: `docs/development/backlog-v1.md`
+- Enables rich task extraction and sprint planning
+- System can identify specific work items to execute
 
 **Example backlog structure:**
 ```markdown
@@ -180,6 +197,8 @@ The backlog should contain epics and tasks. If no backlog exists, the system wil
 - Add analytics widgets
 - Implement data refresh
 ```
+
+**Note**: If you run the workflow without a backlog, you'll see an informational message "Backlog file not found" but the workflow will continue with vision-only mode.
 
 ### 3. GitHub Permissions
 
@@ -361,12 +380,15 @@ If this fails, check your workflow file has this step.
 
 ### Error: "Backlog file not found"
 
-**Cause**: The vision-task-extractor requires a backlog file to generate sprint plans.
+**Cause**: The vision-task-extractor couldn't find a backlog file.
+
+**Impact**: This is informational, not a fatal error. The system can work without a backlog but with limited task extraction.
 
 **Solution**:
-1. Create `docs/development/backlog-v1.md`
-2. Add epics and tasks in markdown format
-3. The backlog should list concrete work items the system can extract
+1. **Option A (Recommended)**: Create `docs/development/backlog-v1.md` with epics and tasks
+2. **Option B**: Continue without backlog - system will work from vision only
+3. The backlog enables richer sprint planning and task extraction
+4. You can always add a backlog later and re-run the workflow
 
 ## Verifying Your Setup
 
