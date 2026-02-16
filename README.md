@@ -21,6 +21,20 @@ So here we go:
 
 **MaSf-vision** (Multi-Agent System Framework based on vision) is a **general-purpose multi-agent system framework** that enables autonomous AI agents to understand any vision, self-organize, and execute collaboratively to realize that vision.
 
+## 🚨 Getting "Workflow Not Found" Error?
+
+If you're trying to use MaSf-vision in your repository (like eZansiEdgeAI) and getting:
+```
+HTTP 404: Not Found (https://api.github.com/repos/.../workflows/autonomous-agent-execution.yml)
+```
+
+**→ See [QUICK-START-EZANSI.md](QUICK-START-EZANSI.md) for the solution!**
+
+**TL;DR**: You need to bootstrap the framework into your repository first:
+```bash
+python /path/to/MaSf-vision/tools/agent-orchestration/bootstrap.py --target-repo /path/to/your/repo
+```
+
 ### Core Capability
 
 The **Master Agent** can:
@@ -104,7 +118,10 @@ When applied to the education use case, the system follows a **phone-first archi
 │
 ├── apps/                    # Application code (example use case)
 │   ├── learner-mobile/      # Mobile application
-│   └── school-edge-node/    # Edge device application
+│   └── school-edge-node/    # Edge device application with API Gateway
+│       ├── api_server.py    # REST API for mobile-edge communication
+│       ├── API.md           # API documentation
+│       └── requirements.txt # Python dependencies
 │
 ├── models/                  # ML models (example use case)
 ├── tests/                   # Test suites
@@ -142,6 +159,28 @@ If you want to use the MaSf-vision framework in your own repository:
 ### Apply to Education Platform Example
 
 See [Development Guide](docs/development/coding-principles.md) for the education platform setup.
+
+### Run the Edge Node API (Optional)
+
+If you want to test the school edge node API Gateway:
+
+```bash
+# Navigate to the edge node directory
+cd apps/school-edge-node
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Start the API server
+python api_server.py
+```
+
+The API will be available at http://localhost:8000 with:
+- Interactive docs: http://localhost:8000/docs
+- Discovery endpoint: http://localhost:8000/api/v1/discover
+- Health check: http://localhost:8000/health
+
+See [Edge Node API Documentation](apps/school-edge-node/API.md) for details.
 
 ## Documentation
 
