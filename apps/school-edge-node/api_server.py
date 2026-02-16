@@ -14,7 +14,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional, List
 import uvicorn
-from datetime import datetime
+from datetime import datetime, timezone
+import os
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -24,9 +25,12 @@ app = FastAPI(
 )
 
 # Configure CORS for mobile device access
+# Use environment variable to control allowed origins
+# Example: ALLOWED_ORIGINS="http://localhost:3000,https://app.example.com"
+allowed_origins = os.getenv("ALLOWED_ORIGINS", "*").split(",")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, specify mobile app origins
+    allow_origins=allowed_origins,  # Configure via ALLOWED_ORIGINS env var
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -100,7 +104,7 @@ async def health_check():
     
     return HealthResponse(
         status="operational",
-        timestamp=datetime.utcnow().isoformat(),
+        timestamp=datetime.now(timezone.utc).isoformat(),
         services=services
     )
 
@@ -127,7 +131,7 @@ async def discover():
             # "sync_coordination",
             # "classroom_orchestration"
         ],
-        timestamp=datetime.utcnow().isoformat()
+        timestamp=datetime.now(timezone.utc).isoformat()
     )
 
 
@@ -189,7 +193,7 @@ async def node_status():
         "services_total": 5,
         "storage_available": "unknown",
         "load_average": "unknown",
-        "last_updated": datetime.utcnow().isoformat()
+        "last_updated": datetime.now(timezone.utc).isoformat()
     }
 
 
