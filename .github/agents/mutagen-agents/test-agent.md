@@ -646,8 +646,13 @@ describe('saveData (network interruption)', () => {
 ```javascript
 describe('processData (low-resource device)', () => {
   beforeEach(() => {
-    // Simulate 2GB RAM device profile using React Native
-    // Use actual device or emulator with 2GB RAM configuration
+    // NOTE: For actual device testing, configure Android AVD with:
+    // - RAM: 2048 MB in AVD Manager
+    // - VM Heap: 512 MB
+    // - Android 8.0 (API 26) or higher
+    // Run: emulator -avd <device_name> -memory 2048
+    
+    // For unit tests, mock device info to simulate constraints
     jest.mock('react-native-device-info', () => ({
       getTotalMemory: jest.fn(() => Promise.resolve(2 * 1024 * 1024 * 1024)), // 2GB
       getMaxMemory: jest.fn(() => Promise.resolve(512 * 1024 * 1024)), // 512MB heap
@@ -851,16 +856,23 @@ it('should save data locally and queue sync', async () => {
 it('should process data', async () => {
   const result = await processLargeDataset(data);
   expect(result).toBeDefined();
-  // May work fine on 16GB RAM but fail on 2GB
+  // May work fine on high-end dev phone but fail on 2GB RAM device
 });
 
-// RIGHT: Tests on target device profile
+// RIGHT: Tests on target device profile (React Native)
 it('should process data on 2GB RAM device', async () => {
-  global.navigator.deviceMemory = 2;
+  // Run on actual Android AVD configured with 2GB RAM
+  // or use react-native-device-info to verify constraints
+  const DeviceInfo = require('react-native-device-info');
+  const totalMemory = await DeviceInfo.getTotalMemory();
+  expect(totalMemory).toBeLessThanOrEqual(2 * 1024 * 1024 * 1024); // 2GB
+  
   const result = await processLargeDataset(data);
   expect(result).toBeDefined();
-  // Verify memory usage reasonable
-  expect(getMemoryUsage()).toBeLessThan(targetMemory);
+  
+  // Verify memory usage is reasonable
+  const usedMemory = await DeviceInfo.getUsedMemory();
+  expect(usedMemory).toBeLessThan(targetMemory);
 });
 ```
 
