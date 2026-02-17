@@ -564,7 +564,7 @@ deadline: [when this is needed by]
 
 ### Testing Patterns
 
-> **Note on Testing Context**: The patterns below use React Native-specific APIs for mobile testing. When testing web components, adapt to use browser APIs. Always test in the actual target environment (React Native for mobile, browser for web).
+> **Note on React Native Testing**: All test examples use React Native-specific APIs for mobile testing. Use `@react-native-community/netinfo` for network state, `react-native-device-info` for device profiling, and `react-native-performance` for performance monitoring.
 
 #### Offline Scenario Testing Pattern
 ```javascript
