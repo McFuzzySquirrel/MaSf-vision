@@ -86,10 +86,10 @@ GitHub Actions workflow that orchestrates autonomous execution.
 
 **Trigger:**
 ```bash
-# Manual trigger
+# Manual trigger (can be run anytime)
 gh workflow run autonomous-agent-execution.yml -f mode=sprint-planning
 
-# Scheduled: Runs weekly on Monday at 9 AM UTC
+# Scheduled: Runs daily at 9 AM UTC for autonomous operation
 ```
 
 **Modes:**
