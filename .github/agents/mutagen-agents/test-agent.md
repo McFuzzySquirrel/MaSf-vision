@@ -564,6 +564,8 @@ deadline: [when this is needed by]
 
 ### Testing Patterns
 
+> **Note on Testing Context**: The patterns below use React Native-specific APIs for mobile testing. When testing web components, adapt to use browser APIs. Always test in the actual target environment (React Native for mobile, browser for web).
+
 #### Offline Scenario Testing Pattern
 ```javascript
 describe('getData (offline scenarios)', () => {
@@ -644,38 +646,44 @@ describe('saveData (network interruption)', () => {
 ```javascript
 describe('processData (low-resource device)', () => {
   beforeEach(() => {
-    // Simulate 2GB RAM device profile
-    global.navigator.deviceMemory = 2;
-    global.navigator.hardwareConcurrency = 4;
+    // Simulate 2GB RAM device profile using React Native
+    // Use actual device or emulator with 2GB RAM configuration
+    jest.mock('react-native-device-info', () => ({
+      getTotalMemory: jest.fn(() => Promise.resolve(2 * 1024 * 1024 * 1024)), // 2GB
+      getMaxMemory: jest.fn(() => Promise.resolve(512 * 1024 * 1024)), // 512MB heap
+    }));
   });
 
   it('should process efficiently on 2GB RAM device', async () => {
-    // Arrange: Monitor memory usage
-    const initialMemory = performance.memory.usedJSHeapSize;
+    // Arrange: Monitor memory usage with React Native tools
+    const DeviceInfo = require('react-native-device-info');
+    const initialUsedMemory = await DeviceInfo.getUsedMemory();
     
     // Act: Process large dataset
     const data = generateLargeDataset(10000);
     const result = await processData(data);
     
     // Assert: Memory increase is reasonable (<50MB)
-    const memoryIncrease = performance.memory.usedJSHeapSize - initialMemory;
+    const finalUsedMemory = await DeviceInfo.getUsedMemory();
+    const memoryIncrease = finalUsedMemory - initialUsedMemory;
     expect(memoryIncrease).toBeLessThan(50 * 1024 * 1024);
   });
 
   it('should remain responsive on low-end device', async () => {
-    // Arrange: Track frame rendering
-    const frameTimings = [];
-    const observer = new PerformanceObserver((list) => {
-      frameTimings.push(...list.getEntries());
-    });
-    observer.observe({ entryTypes: ['measure'] });
+    // Arrange: Use React Native performance monitoring
+    const { performance } = require('react-native-performance');
+    const frameTimes = [];
+    
+    performance.measure('processData', 'processStart', 'processEnd');
     
     // Act: Process data while UI updates
+    performance.mark('processStart');
     await processData(largeDataset);
+    performance.mark('processEnd');
     
-    // Assert: No frames over 16ms (60fps)
-    const longFrames = frameTimings.filter(f => f.duration > 16);
-    expect(longFrames.length).toBe(0);
+    // Assert: Processing completes in reasonable time
+    const measure = performance.getEntriesByName('processData')[0];
+    expect(measure.duration).toBeLessThan(1000); // Less than 1 second
   });
 });
 ```
