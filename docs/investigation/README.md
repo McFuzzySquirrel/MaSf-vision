@@ -4,6 +4,8 @@
 **Date**: February 17, 2026  
 **Conclusion**: Recommended for implementation
 
+> ⚠️ **Important Note on Generalizability**: The enhancement **structure** is universal and works for any project type. The **content** (patterns, tech stack, principles) must be customized per project. See [GENERIC-TEMPLATE.md](GENERIC-TEMPLATE.md) for project-agnostic version.
+
 ## Overview
 
 This investigation examined the viability of enhancing base agent definitions in the MaSf-vision framework to work effectively with GitHub Copilot coding agents.
@@ -14,7 +16,19 @@ This investigation examined the viability of enhancing base agent definitions in
 
 ## Documents in This Investigation
 
-### 1. [VIABILITY-REPORT.md](VIABILITY-REPORT.md) 📊
+### 1. [GENERIC-TEMPLATE.md](GENERIC-TEMPLATE.md) 🌍
+**Universal template for any project type**
+
+Contains:
+- Project-agnostic template structure
+- What's generic vs. project-specific
+- Examples for different project types (web apps, data science, DevOps, games)
+- Customization checklist
+- Migration path for existing projects
+
+**Use this** if you want to apply the enhancement pattern to a different project.
+
+### 2. [VIABILITY-REPORT.md](VIABILITY-REPORT.md) 📊
 **The main investigation report**
 
 Contains:
@@ -28,8 +42,8 @@ Contains:
 
 **Read this first** to understand the investigation findings.
 
-### 2. [copilot-agent-poc-enhanced-implementation-agent.md](copilot-agent-poc-enhanced-implementation-agent.md) 🔬
-**Proof of concept: Enhanced Implementation Agent**
+### 3. [copilot-agent-poc-enhanced-implementation-agent.md](copilot-agent-poc-enhanced-implementation-agent.md) 🔬
+**Proof of concept: Enhanced Implementation Agent (MaSf-vision specific)**
 
 Contains:
 - Complete enhanced agent definition
@@ -43,8 +57,8 @@ Contains:
 
 **Review this** to see what an enhanced agent looks like.
 
-### 3. [IMPLEMENTATION-GUIDE.md](IMPLEMENTATION-GUIDE.md) 📖
-**Step-by-step guide for enhancing agents**
+### 4. [IMPLEMENTATION-GUIDE.md](IMPLEMENTATION-GUIDE.md) 📖
+**Step-by-step guide for enhancing agents (uses MaSf-vision context)**
 
 Contains:
 - Enhancement template
