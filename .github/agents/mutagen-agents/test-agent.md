@@ -570,8 +570,14 @@ deadline: [when this is needed by]
 ```javascript
 describe('getData (offline scenarios)', () => {
   beforeEach(() => {
-    // Simulate offline mode
-    jest.spyOn(navigator, 'onLine', 'get').mockReturnValue(false);
+    // Simulate offline mode using React Native NetInfo
+    jest.mock('@react-native-community/netinfo', () => ({
+      fetch: jest.fn(() => Promise.resolve({
+        isConnected: false,
+        isInternetReachable: false,
+      })),
+      addEventListener: jest.fn(),
+    }));
   });
 
   it('should return data from local storage when offline', async () => {
@@ -650,7 +656,7 @@ describe('processData (low-resource device)', () => {
     // - RAM: 2048 MB in AVD Manager
     // - VM Heap: 512 MB
     // - Android 8.0 (API 26) or higher
-    // Run: emulator -avd <device_name> -memory 2048
+    // Run: emulator -avd <device_name> -ram-size 2048
     
     // For unit tests, mock device info to simulate constraints
     jest.mock('react-native-device-info', () => ({
@@ -815,9 +821,16 @@ it('should get data', async () => {
   expect(result).toBeDefined();
 });
 
-// RIGHT: Tests offline scenario explicitly
+// RIGHT: Tests offline scenario explicitly (React Native)
 it('should get data from local storage when offline', async () => {
-  jest.spyOn(navigator, 'onLine', 'get').mockReturnValue(false);
+  // Mock NetInfo to simulate offline state
+  jest.mock('@react-native-community/netinfo', () => ({
+    fetch: jest.fn(() => Promise.resolve({
+      isConnected: false,
+      isInternetReachable: false,
+    })),
+  }));
+  
   const result = await getData('123');
   expect(result).toEqual(localData);
 });
