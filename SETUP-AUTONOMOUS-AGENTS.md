@@ -273,14 +273,17 @@ gh workflow run autonomous-agent-execution.yml -f mode=create-adr
 ### Scheduled Execution
 
 The workflow is configured to run automatically:
-- **Weekly**: Every Monday at 9 AM UTC
+- **Daily**: Every day at 9 AM UTC
 - Checks for new work and creates sprint plans
+- More frequent execution enables better autonomous agent responsiveness
 
 You can modify the schedule in `.github/workflows/autonomous-agent-execution.yml`:
 
 ```yaml
 schedule:
-  - cron: '0 9 * * 1'  # Modify this line
+  - cron: '0 9 * * *'  # Daily at 9 AM UTC
+  # Change to: '0 9,21 * * *' for twice daily (9 AM and 9 PM UTC)
+  # Or: '0 */6 * * *' for every 6 hours
 ```
 
 ## What Happens When You Run It
@@ -452,9 +455,10 @@ Change when the workflow runs automatically:
 
 ```yaml
 schedule:
-  - cron: '0 9 * * 1'  # Every Monday at 9 AM UTC
-  # Change to: '0 9 * * 5' for Friday
-  # Or: '0 0 1 * *' for first day of month
+  - cron: '0 9 * * *'  # Daily at 9 AM UTC (default)
+  # Change to: '0 9,21 * * *' for twice daily (9 AM and 9 PM UTC)
+  # Or: '0 */6 * * *' for every 6 hours
+  # Or: '0 9 * * 1' for weekly (Monday at 9 AM UTC)
 ```
 
 ### Add Custom Agent Types
